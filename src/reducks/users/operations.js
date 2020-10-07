@@ -6,6 +6,17 @@ import {
   fetchProductsInCartAction,
   fetchOrdersHistoryAction,
 } from "./actions";
+import { push, goBack } from "connected-react-router";
+import {
+  isValidEmailFormat,
+  isValidRequiredInput,
+} from "../../function/common";
+import { hideLoadingAction, showLoadingAction } from "../loading/actions";
+// import { initProductsAction } from "../products/actions";
+
+const usersRef = db.collection("users");
+
+// Sign In
 
 export const signIn = (email, password) => {
   return async (dispatch) => {
@@ -67,16 +78,13 @@ export const signIn = (email, password) => {
   };
 };
 
+// Sign Up
+
 export const signUp = (username, email, password, confirmPassword) => {
   return async (dispatch) => {
     // Validations
     // 未入力の場合
-    if (
-      usename === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
+    if (!isValidRequiredInput(email, password, confirmPassword)) {
       alert("必須項目が未入力です。");
       return false;
     }
@@ -118,7 +126,7 @@ export const signUp = (username, email, password, confirmPassword) => {
             username: username,
           };
 
-          db.collection("users")
+          usersRef
             .doc(uid)
             .set(userInitialData)
             .then(async () => {
@@ -129,7 +137,7 @@ export const signUp = (username, email, password, confirmPassword) => {
               //     username: username,
               // });
               dispatch(push("/"));
-              //   dispatch(hideLoadingAction());
+              dispatch(hideLoadingAction());
             });
         }
       })

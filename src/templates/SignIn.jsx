@@ -8,8 +8,6 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [username, setUsername] = useState("");
 
   const inputEmail = useCallback(
     (e) => {
@@ -27,7 +25,7 @@ const SignIn = () => {
 
   return (
     <div className="c-section-container">
-      <h2 className="u-text-center u-text__headline">アカウント登録</h2>
+      <h2 className="u-text-center u-text__headline">サインイン</h2>
       <div className="module-spacer--medium" />
 
       <TextInput
@@ -54,10 +52,8 @@ const SignIn = () => {
       <div className="module-spacer--medium" />
       <div className="center">
         <PrimaryButton
-          label={"アカウントを登録する"}
-          onClick={() =>
-            dispatch(signUp(username, email, password, confirmPassword))
-          }
+          label={"Sign in"}
+          onClick={() => dispatch(signIn(email, password))}
         />
       </div>
     </div>
