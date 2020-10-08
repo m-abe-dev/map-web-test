@@ -148,3 +148,37 @@ export const signUp = (username, email, password, confirmPassword) => {
       });
   };
 };
+
+// Auth Listen
+
+export const listenAuthState = () => {
+  return async (dispatch) => {
+    return auth.onAuthStateChanged((user) => {
+      if (user) {
+        usersRef
+          .doc(user.uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
+            if (!data) {
+              throw new Error("ユーザーデータが存在しません。");
+            }
+
+            // Update logged in user state
+            dispatch(
+              signInAction({
+                email: data.email,
+                isSignedIn: true,
+                role: data.role,
+                uid: user.uid,
+                username: data.username,
+              })
+            );
+            dispatch(push("/"));
+          });
+      } else {
+        dispatch(push("/signin"));
+      }
+    });
+  };
+};
