@@ -3,12 +3,6 @@ import { initialState } from "../store/initialState";
 
 export const UsersReducer = (state = initialState.users, action) => {
   switch (action.type) {
-    // case Actions.EDIT_USER_PROFILE:
-    //   return {
-    //     ...state,
-    //     icon_path: action.payload.icon_path,
-    //     username: action.payload.username,
-    //   };
     case Actions.SIGN_IN:
       return {
         ...state,
@@ -16,13 +10,8 @@ export const UsersReducer = (state = initialState.users, action) => {
       };
     case Actions.SIGN_OUT:
       return {
-        ...initialState.users,
+        ...action.payload,
       };
-    // case Actions.UPDATE_USER_STATE:
-    //   return {
-    //     ...state,
-    //     ...action.payload,
-    //   };
     default:
       return state;
   }

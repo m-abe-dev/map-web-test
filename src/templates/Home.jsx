@@ -1,11 +1,22 @@
 import React from "react";
-// import { getUserId } from "../reducks/users/selectors";
+import { getUserId, getUserName } from "../reducks/users/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../reducks/users/operations";
 
 const Home = () => {
-  //   const selector = useSelector((state) => state);
-  //   const uid = getUserId(selector);
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state);
+  const uid = getUserId(selector);
+  const username = getUserName(selector);
 
-  return <h2>Home</h2>;
+  return (
+    <div>
+      <h2>Home</h2>
+      <p> userID: {uid}</p>
+      <p> userName: {username}</p>
+      <button onClick={() => dispatch(signOut())}>Sign Out</button>
+    </div>
+  );
 };
 
 export default Home;
