@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { PrimaryButton, TextInput } from "../components/UIkit";
-import { signIn } from "../reducks/users/operations";
+import { resetPassword } from "../reducks/users/operations";
 import { useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 
-const SignIn = () => {
+const Reset = () => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const inputEmail = useCallback(
     (e) => {
@@ -16,16 +16,10 @@ const SignIn = () => {
     [setEmail]
   );
 
-  const inputPassword = useCallback(
-    (e) => {
-      setPassword(e.target.value);
-    },
-    [setPassword]
-  );
-
   return (
     <div className="c-section-container">
-      <h2 className="u-text-center u-text__headline">サインイン</h2>
+      <div className="module-spacer--medium" />
+      <h2 className="u-text-center u-text__headline">パスワードのリセット</h2>
       <div className="module-spacer--medium" />
 
       <TextInput
@@ -38,26 +32,18 @@ const SignIn = () => {
         type={"email"}
         onChange={inputEmail}
       />
-      <TextInput
-        fullWidth={true}
-        label={"パスワード（半角英数字で6文字以上）"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={password}
-        type={"password"}
-        onChange={inputPassword}
-      />
 
       <div className="module-spacer--medium" />
       <div className="center">
         <PrimaryButton
-          label={"Sign in"}
-          onClick={() => dispatch(signIn(email, password))}
+          label={"Reset Password"}
+          onClick={() => dispatch(resetPassword(email))}
         />
+        <div className="module-spacer--medium" />
+        <p onClick={() => dispatch(push("/signin"))}>ログイン画面に戻る</p>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default Reset;
