@@ -10,6 +10,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+import "@reach/combobox/styles.css";
 
 // 検索機能
 
