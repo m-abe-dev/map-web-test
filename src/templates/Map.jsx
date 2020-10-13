@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 import PlaceSearch from "./PlaceSearch";
+import CurrentLocation from "./CurrentLocation";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -40,8 +41,13 @@ const Map = () => {
   }, []);
 
   const mapRef = useRef();
-  const onMapLoad = React.useCallback((map) => {
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+  }, []);
+
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
   }, []);
 
   if (loadError) return "Error";
@@ -49,7 +55,8 @@ const Map = () => {
 
   return (
     <div>
-      <PlaceSearch />
+      <PlaceSearch panTo={panTo} />
+      <CurrentLocation panTo={panTo} />
 
       <GoogleMap
         mapContainerStyle={mapContainerStyle}

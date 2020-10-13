@@ -51,3 +51,9 @@ h1 {
   width: 30px;
   cursor: pointer;
 }
+
+.LocationSearchingIcon {
+  position: absolute;
+  top: 10rem;
+  left: 50%;
+}

@@ -14,7 +14,7 @@ import "@reach/combobox/styles.css";
 
 // 検索機能
 
-const PlaceSearch = () => {
+const PlaceSearch = ({ panTo }) => {
   const {
     ready,
     value,
@@ -35,7 +35,17 @@ const PlaceSearch = () => {
   return (
     <div className="search">
       <Combobox
-        onSelect={(address) => {
+        onSelect={async (address) => {
+          setValue(address, false);
+          clearSuggestions();
+
+          try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            panTo({ lat, lng });
+          } catch (error) {
+            console.log("error!");
+          }
           console.log(address);
         }}
       >
