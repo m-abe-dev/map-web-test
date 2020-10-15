@@ -17,7 +17,7 @@ const CurrentLocation = ({ panTo }) => {
         );
       }}
     >
-      <LocationSearchingIcon style={{ color: secondary }} />
+      <LocationSearchingIcon />
     </button>
   );
 };
