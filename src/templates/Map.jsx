@@ -62,7 +62,7 @@ const Map = () => {
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
-        onClick={onMapClick}
+        onRightClick={onMapClick}
         onLoad={onMapLoad}
       >
         {markers.map((marker) => (
